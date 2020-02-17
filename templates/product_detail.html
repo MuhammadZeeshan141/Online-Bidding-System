@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_content %}
+<title>{{ product.title }}</title>
+
+<div class="product_image_area">
+		<div class="container">
+			<div class="row s_product_inner">
+				<div class="col-lg-6">
+					<div class="s_Product_carousel">
+						<div class="single-prd-item">
+							<img class="img-fluid" src="{{ product.image.url }}" alt="">
+						</div>
+						<div class="single-prd-item">
+							<img class="img-fluid" src="{{ product.image.url }}" alt="">
+						</div>
+						<div class="single-prd-item">
+							<img class="img-fluid" src="{{ product.image.url }}" alt="">
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-5 offset-lg-1">
+					<div class="s_product_text">
+						<h3>{{ product.title }}</h3>
+						<h2>${{ product.price }}</h2>
+						<ul class="list">
+							<li><a class="active" href="#"><span>Category</span> : Shoes</a></li>
+							<li><span >Availibility</span> : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In Stock
+                            ({{ product.quantity }})
+                            </li>
+						</ul>
+						<p>{{ product.description }}</p>
+						<div class="product_count">
+							<label for="qty">Quantity:</label>
+							<input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
+							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
+							 class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
+							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
+							 class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
+						</div>
+						<div class="card_area d-flex align-items-center">
+							<a class="primary-btn" href="#">Add to Cart</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<section class="product_description_area">
+		<div class="container">
+			<ul class="nav nav-tabs" id="myTab" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false">Description</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+					 aria-selected="false">Specification</a>
+				</li>
+			</ul>
+			<div class="tab-content " id="myTabContent">
+				<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+					<p>{{ product.long_description }} </p>
+				</div>
+				<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+					<div class="table-responsive">
+						<table class="table">
+							<tbody>
+								<tr>
+									<td>
+										<h5>Width</h5>
+									</td>
+									<td>
+										<h5>{{ product.width }}</h5>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<h5>Height</h5>
+									</td>
+									<td>
+										<h5>{{ product.height }}</h5>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<h5>Weight</h5>
+									</td>
+									<td>
+										<h5>{{ product.weight }}</h5>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+</section>
+{% endblock %}
