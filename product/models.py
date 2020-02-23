@@ -20,8 +20,15 @@ class Product(models.Model):
         auto_now_add=True,
     )
 
+    def __str__(self):
+        return self.title
+
 
 class Category(models.Model):
     title = models.CharField(max_length=100)
     status = models.BooleanField()
+
+    def __str__(self):
+        return self.title
+
 

@@ -1,9 +1,18 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
 
 
 # Create your views here.
+def validateEmail(email):
+    try:
+        validate_email(email)
+        return True
+    except ValidationError:
+        return False
+
 
 def signup(request):
     if request.method == 'POST':
@@ -14,22 +23,28 @@ def signup(request):
         password1 = request.POST['password']
         password2 = request.POST['confirmPassword']
 
-        if password1 == password2:
-            if User.objects.filter(username=username).exists():
-                messages.INFO(request, 'Username Taken')
-                return redirect('signup')
-            elif User.objects.filter(email=email).exists():
-                messages.INFO(request, 'Email Taken')
-                return redirect('signup')
+        if username != '' and password1 != '' and password2 != '' and email != '' and first_name != '' and last_name != '':
+            if validateEmail(email):
+                if password1 == password2:
+                    if User.objects.filter(username=username).exists():
+                        messages.error(request, 'Username Taken', extra_tags='alert-danger')
+                        return redirect('signup')
+                    elif User.objects.filter(email=email).exists():
+                        messages.error(request, 'Email Taken', extra_tags='alert-danger')
+                        return redirect('signup')
+                    else:
+                        user = User.objects.create_user(username=username, first_name=first_name, last_name=last_name,
+                                                        email=email, password=password1)
+                        user.save()
+                        messages.success(request, 'User created', extra_tags='alert-success')
+                        return redirect('login')
+                else:
+                    messages.error(request, 'Password does not match', extra_tags='alert-danger')
+                    return redirect('signup')
             else:
-                user = User.objects.create_user(username=username, first_name=first_name, last_name=last_name,
-                                                email=email, password=password1)
-                user.save();
-                print('User created')
-                return redirect('login')
+                (messages.error(request, 'Enter a valid Email', extra_tags='alert-danger'))
         else:
-            print('Password does not match')
-            return redirect('signup')
+            messages.error(request, 'Please fill all the fields', extra_tags='alert-danger')
 
     return render(request, "signup.html")
 
@@ -45,7 +60,7 @@ def login(request):
             auth.login(request, user)
             return redirect('/')
         else:
-            # messages.INFO(request, 'Invalid Credentials')
+            messages.info(request, 'Invalid Credentials', extra_tags='alert-danger')
             return redirect('login')
     return render(request, "login.html")
 
