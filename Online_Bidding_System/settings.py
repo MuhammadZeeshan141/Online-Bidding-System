@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'product',
     'account',
     'contact',
+    'cart',
 ]
 
 MIDDLEWARE = [
@@ -77,9 +78,9 @@ WSGI_APPLICATION = 'Online_Bidding_System.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'bidding_db',
-        'PASSWORD': 'admin12345',
-        'USER': 'zeeshan',
+        'NAME': 'online_bidding_system',
+        'USER': 'root',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '3306',
     }

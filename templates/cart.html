@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% load static%}
+{% block page_content %}
+<section class="cart_area">
+    <div class="container">
+        <div class="cart_inner">
+            <div class="table-responsive">
+                {% if cart_items %}
+                <table class="table table_cart">
+                    <thead>
+                    <tr>
+                        <th scope="col">Product(s) &nbsp; ({{ total_products }})</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in cart_items %}
+                    <tr>
+                        <td>
+                            <div class="media">
+                                <div class="d-flex">
+                                    <img class="img-fluid image_cart_thumb" src="{{item.product.image.url}}"
+                                         alt="Image not found">
+                                </div>
+                                <div class="media-body">
+                                    <h6>{{ item.product.title }}</h6>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <h5>${{ item.product.price }}</h5>
+                        </td>
+                        <td>
+                            <div class="product_count">
+                                <input type="text" name="qty" id="product_quantity_{{item.id}}" maxlength="12"
+                                       value={{item.quantity}} title="Quantity:"
+                                       class="input-text qty">
+                                <form class="row contact_form" action="cart_item_increment" method="post"
+                                      novalidate="novalidate">
+                                    {% csrf_token %}
+                                    <input type="hidden" class="form-control" value="{{item.id}}"
+                                           id="cart_item_increment" name="cart_item_increment">
+                                    <button type="submit" value="submit" class="increase items-count" type="button"><i
+                                            class="lnr lnr-chevron-up"></i></button>
+                                </form>
+                                <form class="row contact_form" action="cart_item_decrement" method="post"
+                                      novalidate="novalidate">
+                                    {% csrf_token %}
+                                    <input type="hidden" class="form-control" value="{{item.id}}"
+                                           id="cart_item_decrement" name="cart_item_decrement">
+                                    <button type="submit" value="submit" class="reduced items-count" type="button"><i
+                                            class="lnr lnr-chevron-down"></i></button>
+                                </form>
+                            </div>
+                        </td>
+                        <td>
+                            <h5>${{ item.price}}</h5>
+                        </td>
+                        <td>
+                            <form class="row contact_form" action="remove_cart_item" method="post"
+                                  novalidate="novalidate">
+                                {% csrf_token %}
+                                <input type="hidden" class="form-control" value="{{item.id}}" id="cart_item_id"
+                                       name="cart_item_id">
+                                <button type="submit" value="submit" class="genric-btn danger radius">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                            <h5>Subtotal</h5>
+                        </td>
+                        <td>
+                            <h5>${{ total_price }}</h5>
+                        </td>
+                    </tr>
+                    <tr class="bottom_button">
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+                            <a class="genric-btn info circle arrow" href="{% url 'checkout' %}">Proceed<span
+                                    class="lnr lnr-arrow-right"></span></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                {% else %}
+                <h2>Cart is empty</h2>
+                <h6>Please add some items from shop</h6>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

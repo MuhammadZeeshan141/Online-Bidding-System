@@ -2,103 +2,99 @@
 {% load static%}
 {% block page_content %}
 
-	<section class="features-area section_gap">
-		<div class="container">
-			<div class="row features-inner">
-				<div class="col-lg-3 col-md-6 col-sm-6">
-					<div class="single-features">
-						<div class="f-icon">
-							<img src="{% static 'img/features/f-icon1.png'%}" alt="">
-						</div>
-						<h6>Secure Delivery</h6>
-						<p>Secure Shipping for all order</p>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 col-sm-6">
-					<div class="single-features">
-						<div class="f-icon">
-							<img src="{% static 'img/features/f-icon2.png'%}" alt="">
-						</div>
-						<h6>Return Policy</h6>
-						<p></p>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 col-sm-6">
-					<div class="single-features">
-						<div class="f-icon">
-							<img src="{% static 'img/features/f-icon3.png'%}" alt="">
-						</div>
-						<h6>24/7 Support</h6>
-						<p></p>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 col-sm-6">
-					<div class="single-features">
-						<div class="f-icon">
-							<img src="{% static 'img/features/f-icon4.png'%}" alt="">
-						</div>
-						<h6>Secure Payment</h6>
-						<p></p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-		<div class="single-product-slider">
-			<div class="container">
-				<div class="row justify-content-center">
-					<div class="col-lg-6 text-center">
-						<div class="section-title">
-							<h1>Latest Products</h1>
-							<p>Your Favourites In One Place, Find your perfect here.</p>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					{% for product in products %}
-					<div class="col-lg-3 col-md-6">
-						<div class="single-product">
-							<img class="img-fluid image_thumb" src="{{product.image.url}}" alt="">
-							<div class="product-details">
-								<a href="{% url 'product_detail' product.pk %}" class="social-info">
-								<h6>{{ product.title }}</h6>
-								</a>
-								<div class="price">
-									<h6>${{ product.price }}</h6>
-									<h6 class="l-through">${{ product.price |add:"10" }}</h6>
-								</div>
-								<div class="prd-bottom">
-									<a href="{% url 'product_detail' product.pk %}" class="social-info">
-										<span class="lnr lnr-move"></span>
-										<p class="hover-text">view more</p>
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					 {% endfor %}
-				</div>
-			</div>
-		</div>
+<section class="features-area section_gap">
+    <div class="container">
+        <div class="row features-inner">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="single-features">
+                    <div class="f-icon">
+                        <img src="{% static 'img/features/f-icon1.png'%}" alt="">
+                    </div>
+                    <h6>Secure Delivery</h6>
+                    <p>Secure Shipping for all order</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="single-features">
+                    <div class="f-icon">
+                        <img src="{% static 'img/features/f-icon2.png'%}" alt="">
+                    </div>
+                    <h6>Return Policy</h6>
+                    <p></p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="single-features">
+                    <div class="f-icon">
+                        <img src="{% static 'img/features/f-icon3.png'%}" alt="">
+                    </div>
+                    <h6>24/7 Support</h6>
+                    <p></p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="single-features">
+                    <div class="f-icon">
+                        <img src="{% static 'img/features/f-icon4.png'%}" alt="">
+                    </div>
+                    <h6>Secure Payment</h6>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="single-product-slider">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 text-center">
+                <div class="section-title">
+                    <h1>Latest Products</h1>
+                    <p>Your Favourites In One Place, Find your perfect here.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% for product in products %}
+            <div class="col-lg-3 col-md-6">
+                <div class="single-product">
+                    <a href="{% url 'product_detail' product.pk %}"><img class="img-fluid image_thumb"
+                                                                         src="{{product.image.url}}"
+                                                                         alt="Image not found"></a>
+                    <div class="product-details">
+                        <a href="{% url 'product_detail' product.pk %}" class="social-info">
+                            <h6>{{ product.title }}</h6>
+                        </a>
+                        <div class="price">
+                            <h6>${{ product.price }}</h6>
+                            <h6 class="l-through">${{ product.price |add:"10" }}</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 
-	<section class="exclusive-deal-area">
-		<div class="container-fluid">
-			<div class="row justify-content-center align-items-center">
-				<div class="col-lg-6 no-padding exclusive-right">
-					<img  src="{% static 'img/exclusive.jpg'%}" alt="Image not found">
-				</div>
-				<div class="col-lg-6 no-padding exclusive-right">
-					<img class="img-fluid" src="{{featured_product.image.url}}" alt="">
-					<div class="product-details">
-						<div class="price">
-							<h6>${{ featured_product.price }}</h6>
-							<h6 class="l-through">${{ featured_product.price |add:"10" }}</h6>
-						</div>
-						<h4>{{ featured_product.title }}</h4>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>]
+<section class="exclusive-deal-area">
+    <div class="container-fluid">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-6 no-padding exclusive-right">
+                <img src="{% static 'img/exclusive.jpg'%}" alt="Image not found">
+            </div>
+            <div class="col-lg-6 no-padding exclusive-right">
+                <img class="img-fluid" src="{{featured_product.image.url}}" alt="">
+                <div class="product-details">
+                    <div class="price">
+                        <h6>${{ featured_product.price }}</h6>
+                        <h6 class="l-through">${{ featured_product.price |add:"10" }}</h6>
+                    </div>
+                    <h4>{{ featured_product.title }}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>]
 
 {% endblock %}

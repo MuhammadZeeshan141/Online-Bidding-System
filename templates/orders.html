@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static%}
+{% block page_content %}
+<section class="cart_area">
+    <div class="container">
+        <div class="cart_inner">
+            <div class="table-responsive">
+                {% if order_items %}
+                <table class="table table_cart">
+                    <thead>
+                    <tr>
+                        <th scope="col">Product(s)</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Billing Address Info</th>
+                        <th scope="col">City</th>
+                        <th scope="col">Country</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Date/Time</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in order_items %}
+                    <tr>
+                        <td>
+                            <div class="media">
+                                <div class="d-flex">
+                                    <img class="img-fluid image_cart_thumb" src="{{item.product.image.url}}"
+                                         alt="Image not found">
+                                </div>
+                                <div class="media-body">
+                                    <h5>{{ item.product.title }}</h5>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <h4>${{ item.productPrice }}</h4>
+                        </td>
+                        <td>
+                            <h5>{{ item.quantity }}</h5>
+                        </td>
+                        <td>
+                            <h4>${{ item.orderPrice}}</h4>
+                        </td>
+                        <td>
+                            Phone # :<h6> {{ item.phoneNumber}}</h6>
+                            Email :<h6> {{ item.email}}</h6>
+                            Address :<h6> {{ item.adressLine1}}</h6>
+                            <h6>{{ item.adressLine2}}</h6>
+                        </td>
+                        <td>
+                            <h6>{{ item.city}}</h6>
+                        </td>
+                        <td>
+                            <h6>{{ item.country}}</h6>
+                        </td>
+                        <td>
+                            <h6>{{ item.status}}</h6>
+                        </td>
+                        <td>
+                            Date : <h6>{{ item.date|date:'d-F-Y' }}</h6>
+                            Time : <h6>{{ item.date|date:'H:i' }}</h6>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <h2>No order to show</h2>
+                <h6>Please place some orders</h6>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

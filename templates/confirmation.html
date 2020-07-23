@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static%}
+{% block page_content %}
+
+<section class="order_details section_gap">
+    <div class="container">
+        <h3 class="title_confirmation">Thank you. Your order has been received.</h3>
+        {% for order in orders|slice:":1" %}
+        <div class="row order_d_inner">
+            <div class="col-lg-6">
+                <div class="details_item">
+                    <h4>Order Info</h4>
+                    <ul class="list">
+                        <li><a><span>Name</span> : {{order.firstName}} {{order.lastName}}</a></li>
+                        <li><a><span>Phone Number</span> : {{order.phoneNumber}}</a></li>
+                        <li><a><span>Email</span> : {{order.email}}</a></li>
+                        <li><a><span>Date</span> : {{order.date}}</a></li>
+                        <h4><br></h4>
+                        <li><a><span>Total </span> : ${{total_price}}</a></li>
+                        <li><a><span>Payment method</span> : Cash on Delivery</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="details_item">
+                    <h4>Billing Address</h4>
+                    <ul class="list">
+                        <li><a><span>Adress</span> : {{order.adressLine1}}</a></li>
+                        <li><a><span> </span> : {{order.adressLine2}} </a></li>
+                        <li><a><span>City</span> : {{order.city}}</a></li>
+                        <li><a><span>Country</span> : {{order.country}}</a></li>
+                        <li><a><span>Postcode/ZIP </span> : {{order.ZIP}}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {%endfor%}
+        <div class="order_details_table">
+            <h2>Orders Details</h2>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Product</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in orders %}
+                    <tr>
+                        <td>
+                            <p>{{item.product.title}}</p>
+                        </td>
+                        <td>
+                            <h5>x {{item.quantity}}</h5>
+                        </td>
+                        <td>
+                            <p>${{item.productPrice}}</p>
+                        </td>
+                    </tr>
+                    {%endfor%}
+                    <tr>
+                        <td>
+                            <h4>Total</h4>
+                        </td>
+                        <td>
+                            <h5></h5>
+                        </td>
+                        <td>
+                            <p>${{total_price}}</p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
