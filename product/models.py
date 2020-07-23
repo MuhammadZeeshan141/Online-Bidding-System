@@ -14,7 +14,7 @@ class Product(models.Model):
     height = models.IntegerField()
     width = models.IntegerField()
     weight = models.IntegerField()
-    category_id = models.ForeignKey('Category', related_name="products", on_delete=models.CASCADE)
+    category = models.ForeignKey('Category', related_name="products", on_delete=models.CASCADE)
     created_by = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     date = models.DateTimeField(
         auto_now_add=True,
@@ -30,5 +30,3 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
-
-

@@ -7,7 +7,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def home(request):
     products = Product.objects.all()
-    featured_product = Product.objects.get(pk=5)
+    featured_product = Product.objects.get(pk=1)
     context = {
         'products': products,
         'featured_product': featured_product
@@ -17,6 +17,48 @@ def home(request):
 
 def product_index(request):
     products_list = Product.objects.all()
+    total_products = products_list.count
+    paginator = Paginator(products_list, 1)
+    page = request.GET.get('page', 1)
+    categories = Category.objects.all()
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
+    context = {
+        'total_products': total_products,
+        'products': products,
+        'categories': categories,
+        'paginator': paginator
+    }
+    return render(request, 'product_index.html', context)
+
+
+def product_ascending(request):
+    products_list = Product.objects.all().order_by('price')
+    total_products = products_list.count
+    paginator = Paginator(products_list, 1)
+    page = request.GET.get('page', 1)
+    categories = Category.objects.all()
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
+    context = {
+        'total_products': total_products,
+        'products': products,
+        'categories': categories,
+        'paginator': paginator
+    }
+    return render(request, 'product_index.html', context)
+
+
+def product_descending(request):
+    products_list = Product.objects.all().order_by('-price')
     total_products = products_list.count
     paginator = Paginator(products_list, 1)
     page = request.GET.get('page', 1)
