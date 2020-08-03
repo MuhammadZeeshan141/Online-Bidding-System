@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static%}
+{% block page_content %}
+
+<div class="container">
+    <div class="row margin_top_50">
+        <div class="col-md-2"></div>
+    <div class="col-md-8 col-sm-12">
+    <div class="scroll-messages">
+        {% for message in all_messages %}
+        <div class="{% if message.msg_from == 'customer' %} customer-message-align  {% else %} vendor-message-align {% endif %}">
+            <h6 class="message-span {% if message.msg_from == 'customer' %} customer-message  {% else %} vendor-message {% endif %}">{{ message.message }}</h6><br>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if messages %}
+    <ul class="message">
+        {% for message in messages %}
+        {% if message.tags %}
+        <div class="{{ message.extra_tags }} margin_top_50">
+            {% endif %}
+            {{ message }}
+            {% endfor %}
+        </div>
+    </ul>
+    {% endif %}
+    <form class="row contact_form margin_top_50" action="{% url 'sendMessage' %}" method="post" novalidate="novalidate">
+        {% csrf_token %}
+        <input type="hidden" value="{{order_id}}" name="order_id">
+        <div class="col-md-9 form-group">
+            <input type="text" class="form-control" id="message" name="message"
+                   placeholder="Enter message" onfocus="this.placeholder = ''"
+                   onblur="this.placeholder = 'Enter message'" required>
+        </div>
+        <div class="col-md-3 text-right">
+            <button type="submit" value="submit" class="genric-btn info circle arrow">Send<span
+                    class="lnr lnr-arrow-right"></span></button>
+        </div>
+    </form>
+    </div>
+        <div class="col-md-2"></div>
+        </div>
+</div>
+{% endblock %}

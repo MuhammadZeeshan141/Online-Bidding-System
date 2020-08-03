@@ -1,5 +1,6 @@
 from django.db import models
 from product.models import Product
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -33,7 +34,7 @@ class Order(models.Model):
     adressLine2 = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     ZIP = models.CharField(max_length=50)
-    quantity = models.IntegerField()
+    quantity = models.IntegerField(default=1)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     productPrice = models.IntegerField()
@@ -53,3 +54,20 @@ class Order(models.Model):
 
     def __str__(self):
         return self.product
+
+
+class OrderMessage(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    customer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='customer')
+    vendor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='vendor')
+    message = models.TextField()
+    CUSTOMER = 'customer'
+    VENDOR = 'vendor'
+    STATUS = [
+        (CUSTOMER, 'customer'),
+        (VENDOR, 'vendor'),
+    ]
+    msg_from = models.CharField(max_length=32, choices=STATUS, default=CUSTOMER)
+    date = models.DateTimeField(
+        auto_now_add=True,
+    )

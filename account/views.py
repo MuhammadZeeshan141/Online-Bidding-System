@@ -3,6 +3,9 @@ from django.contrib.auth.models import User, auth
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.shortcuts import render, redirect
+from cart.models import Order, OrderMessage
+from bidding.models import Transactions
+from product.models import Product
 
 
 # Create your views here.
@@ -68,3 +71,48 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('/')
+
+
+def accountDetails(request):
+    user = request.user
+    order_items = Order.objects.filter(status='pending', user=request.user)
+    bid_items = Transactions.objects.filter(user=request.user)
+    context = {
+        'user': user,
+        'order_items': order_items,
+        'bid_items': bid_items
+    }
+    return render(request, "user_profile.html", context)
+
+
+def contactVendor(request, pk):
+    all_messages = OrderMessage.objects.filter(order=pk).order_by('-id')
+    context = {
+        'order_id': pk,
+        'all_messages': all_messages
+    }
+    return render(request, "order_messages.html", context)
+
+
+def sendMessage(request):
+    order = Order.objects.get(pk=request.POST['order_id'])
+    all_messages = OrderMessage.objects.filter(order=order.id)
+    if request.method == 'POST':
+        order_messages = OrderMessage()
+        order_messages.order = order
+        order_messages.customer = request.user
+        order_messages.vendor = order.product.created_by
+        order_messages.message = request.POST['message']
+        order_messages.msg_from = 'customer'
+        if order_messages.message != '':
+            order_messages.save()
+            messages.success(request, 'Message sent', extra_tags='alert-success')
+        else:
+            messages.error(request, 'Message not sent: Write a message', extra_tags='alert-danger')
+    context = {
+        'order_id': order.id,
+        'all_messages': all_messages
+    }
+    order_id = str(order.id);
+    return redirect('/ContactVendor/'+order_id)
+    #return render(request, "order_messages.html", context)
