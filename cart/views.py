@@ -153,11 +153,3 @@ def cart_item_decrement(request):
         'total_price': total_price,
     }
     return render(request, 'cart.html', context)
-
-
-def orders(request):
-    order_items = Order.objects.filter(status='pending', user=request.user)
-    context = {
-        'order_items': order_items
-    }
-    return render(request, 'orders.html', context)

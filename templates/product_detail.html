@@ -2,8 +2,14 @@
 {% load static %}
 
 {% block page_content %}
-<title>{{ product.title }}</title>
-
+<div class=" container breadcrumb-banner breadcrumb-padding">
+    <h1>{{ product.title }}</h1>
+    <nav class="d-flex align-items-center">
+        <a href="{% url 'home'%}">Home<span class="lnr lnr-arrow-right"></span></a>
+        <a href="{% url 'product_index' %}">Shop<span class="lnr lnr-arrow-right"></span></a>
+        <span>{{ product.title }}</span>
+    </nav>
+</div>
 <div class="product_image_area">
     <div class="container">
         <div class="row s_product_inner">
@@ -32,15 +38,11 @@
                             ({{ product.quantity }})
                         </li>
                     </ul>
-                    <p>{{ product.description }}</p>
+                    <blockquote class="generic-blockquote">{{ product.description }}</blockquote>
                     <div class="product_count">
                         <label for="qty">Quantity:</label>
-                        <input type="text" name="qty" id="product_quantity" maxlength="12" value="1" title="Quantity:"
+                        <input type="number" min="1" max="{{ product.quantity }}" name="qty" id="product_quantity" maxlength="12" value="1" title="Quantity:"
                                class="input-text qty">
-                        <button onclick="var result = document.getElementById('product_quantity'); var product_quantity = result.value; if( !isNaN( product_quantity )) result.value++;return false;"
-                                class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-                        <button onclick="var result = document.getElementById('product_quantity'); var product_quantity = result.value; if( !isNaN( product_quantity ) &amp;&amp; product_quantity > 0 ) result.value--;return false;"
-                                class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
                     </div>
                     <div id="snackbar">Added to Cart Successfully</div>
                     <div class="card_area d-flex align-items-center">
@@ -93,7 +95,7 @@
         </ul>
         <div class="tab-content " id="myTabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <p>{{ product.long_description }} </p>
+                <blockquote class="generic-blockquote">{{ product.long_description }} </blockquote>
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="table-responsive">

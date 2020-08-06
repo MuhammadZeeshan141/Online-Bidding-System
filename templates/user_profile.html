@@ -2,14 +2,14 @@
 {% load static %}
 
 {% block page_content %}
-<div class="container">
-    <div class=" container breadcrumb-banner breadcrumb-padding">
-    <h1>User Information</h1>
-    <nav class="d-flex align-items-center">
-        <a href="{% url 'home'%}">Home<span class="lnr lnr-arrow-right"></span></a>
-        <span>{{ user.username }}</span>
-    </nav>
-</div>
+<div class="padding-home-page">
+    <div class=" padding-home-page breadcrumb-banner breadcrumb-padding">
+        <h1>User Information</h1>
+        <nav class="d-flex align-items-center">
+            <a href="{% url 'home'%}">Home<span class="lnr lnr-arrow-right"></span></a>
+            <span>{{ user.username }}</span>
+        </nav>
+    </div>
     <h2>User Profile info</h2>
     <div class="user-profile-tab">
         <button class="user-profile-tablinks active" onclick="openCity(event, 'Profile')">Profile</button>
@@ -72,7 +72,7 @@
 
     <div id="Bids" class="user-profile-tabcontent">
         <h3>Bids</h3>
-        <div class="container">
+        <div class="padding-user-profile">
             <div class="cart_inner">
                 <div class="table-responsive">
                     {% if bid_items %}
@@ -134,7 +134,7 @@
 
     <div id="Orders" class="user-profile-tabcontent">
         <h4>Orders</h4>
-        <div class="container">
+        <div class="padding-user-profile">
             <div class="cart_inner">
                 <div class="table-responsive">
                     {% if order_items %}
@@ -195,7 +195,8 @@
                                 <span>Time : </span><h6>{{ item.date|date:'H:i' }}</h6>
                             </td>
                             <td>
-                                <a href=" {% url 'contactVendor' item.pk %} " class="genric-btn info circle arrow">Contact Vendor<span class="lnr lnr-arrow-right"></span></a>
+                                <a href=" {% url 'contactVendor' item.pk %} " class="genric-btn info circle arrow">Contact
+                                    Vendor<span class="lnr lnr-arrow-right"></span></a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -225,5 +226,6 @@ function openCity(evt, cityName) {
   document.getElementById(cityName).style.display = "block";
   evt.currentTarget.className += " active";
 }
+
 </script>
 {% endblock %}

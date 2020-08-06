@@ -1,103 +1,108 @@
 {% extends "base.html" %}
 {% load static%}
 {% block page_content %}
-
-<section class="checkout_area section_gap">
-    <div class="container">
-        <div class="billing_details">
-            <div class="row">
-                <div class="col-lg-8">
-                    <h3>Billing Details</h3>
-                    {% if messages %}
-                    <ul class="message">
-                        {% for message in messages %}
-                        {% if message.tags %}
-                        <div class="{{ message.extra_tags }} margin_top_50">
-                            {% endif %}
-                            {{ message }}
-                            {% endfor %}
-                        </div>
-                    </ul>
-                    {% endif %}
-                    <form class="row contact_form" action="#" method="post" novalidate="novalidate">
-                        {% csrf_token %}
-                        <div class="col-md-6 form-group p_star">
-                            <input type="text" class="form-control" id="first_name" name="first_name"
-                                   placeholder="First name" onfocus="this.placeholder = ''"
-                                   onblur="this.placeholder = 'First name'" required>
-                        </div>
-                        <div class="col-md-6 form-group p_star">
-                            <input type="text" class="form-control" id="last_name" name="last_name"
-                                   placeholder="Last name" onfocus="this.placeholder = ''"
-                                   onblur="this.placeholder = 'Last name'" required>
-                        </div>
-                        <div class="col-md-6 form-group p_star">
-                            <input type="number" class="form-control" id="number" name="number"
-                                   placeholder="Phone number" onfocus="this.placeholder = ''"
-                                   onblur="this.placeholder = 'Phone number'" required>
-                        </div>
-                        <div class="col-md-6 form-group p_star">
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Email Address"
-                                   onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'" required>
-                        </div>
-                        <div class="col-md-12 form-group p_star">
-                            <select class="country_select" name="country" required>
-                                <option value="">Country</option>
-                                {% for country in countries_list %}
-                                <option value="{{country.name}}">{{country.name}}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="col-md-12 form-group p_star">
-                            <input type="text" class="form-control" id="add1" name="add1" placeholder="Address line 01"
-                                   onfocus="this.placeholder = ''" onblur="this.placeholder = 'Address line 01'"
-                                   required>
-                        </div>
-                        <div class="col-md-12 form-group p_star">
-                            <input type="text" class="form-control" id="add2" name="add2" placeholder="Address line 02"
-                                   onfocus="this.placeholder = ''" onblur="this.placeholder = 'Address line 02'"
-                                   required>
-                        </div>
-                        <div class="col-md-12 form-group p_star">
-                            <input type="text" class="form-control" id="city" name="city" placeholder="Town/City"
-                                   onfocus="this.placeholder = ''" onblur="this.placeholder = 'Town/City'" required>
-                        </div>
-                        <div class="col-md-12 form-group">
-                            <input type="number" class="form-control" id="zip" name="zip" placeholder="Postcode/ZIP"
-                                   onfocus="this.placeholder = ''" onblur="this.placeholder = 'Postcode/ZIP'" required>
-                        </div>
-                        <div class="col-md-12 text-right">
-                            <button type="submit" value="submit" class="genric-btn info circle arrow">Proceed<span
-                                    class="lnr lnr-arrow-right"></span></button>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-lg-4">
-                    <div class="order_box">
-                        <h2>Your Order</h2>
-                        <ul class="list">
-                            <li><a>Product <span>Total</span></a></li>
-                            {% for item in cart_items %}
-                            <li><a>{{item.product.title}} <span class="middle">x {{item.quantity}}</span> <span
-                                    class="last">${{item.price}}</span></a></li>
-                            {% endfor %}
-                        </ul>
-                        <ul class="list list_2">
-                            <li><a>Total <span>${{total_price}}</span></a></li>
-                        </ul>
-                        <div class="payment_item">
-                            <!-- <div class="radion_btn">
-                                 <input type="radio" id="f-option5" name="selector" required>
-                                 <label for="f-option5">Cash on Delivery</label>
-                                 <div class="check"></div>
-                             </div> -->
-                        </div>
-
+<div class=" container breadcrumb-banner breadcrumb-padding">
+    <h1>Checkout</h1>
+    <nav class="d-flex align-items-center">
+        <a href="{% url 'home'%}">Home<span class="lnr lnr-arrow-right"></span></a>
+        <a href="{% url 'cart' %}">Cart<span class="lnr lnr-arrow-right"></span></a>
+        <span>Checkout</span>
+    </nav>
+</div>
+<div class="container">
+    <div class="billing_details">
+        <div class="row">
+            <div class="col-lg-8">
+                <h3>Billing Details</h3>
+                {% if messages %}
+                <ul class="message">
+                    {% for message in messages %}
+                    {% if message.tags %}
+                    <div class="{{ message.extra_tags }} margin_top_50">
+                        {% endif %}
+                        {{ message }}
+                        {% endfor %}
                     </div>
+                </ul>
+                {% endif %}
+                <form class="row contact_form" action="#" method="post" novalidate="novalidate">
+                    {% csrf_token %}
+                    <div class="col-md-6 form-group p_star">
+                        <input type="text" class="form-control" id="first_name" name="first_name"
+                               placeholder="First name" onfocus="this.placeholder = ''"
+                               onblur="this.placeholder = 'First name'" required>
+                    </div>
+                    <div class="col-md-6 form-group p_star">
+                        <input type="text" class="form-control" id="last_name" name="last_name"
+                               placeholder="Last name" onfocus="this.placeholder = ''"
+                               onblur="this.placeholder = 'Last name'" required>
+                    </div>
+                    <div class="col-md-6 form-group p_star">
+                        <input type="number" class="form-control" id="number" name="number"
+                               placeholder="Phone number" onfocus="this.placeholder = ''"
+                               onblur="this.placeholder = 'Phone number'" required>
+                    </div>
+                    <div class="col-md-6 form-group p_star">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email Address"
+                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'" required>
+                    </div>
+                    <div class="col-md-12 form-group p_star">
+                        <select class="country_select" name="country" required>
+                            <option value="">Country</option>
+                            {% for country in countries_list %}
+                            <option value="{{country.name}}">{{country.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-12 form-group p_star">
+                        <input type="text" class="form-control" id="add1" name="add1" placeholder="Address line 01"
+                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Address line 01'"
+                               required>
+                    </div>
+                    <div class="col-md-12 form-group p_star">
+                        <input type="text" class="form-control" id="add2" name="add2" placeholder="Address line 02"
+                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Address line 02'"
+                               required>
+                    </div>
+                    <div class="col-md-12 form-group p_star">
+                        <input type="text" class="form-control" id="city" name="city" placeholder="Town/City"
+                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Town/City'" required>
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <input type="number" class="form-control" id="zip" name="zip" placeholder="Postcode/ZIP"
+                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Postcode/ZIP'" required>
+                    </div>
+                    <div class="col-md-12 text-right">
+                        <button type="submit" value="submit" class="genric-btn info circle arrow">Proceed<span
+                                class="lnr lnr-arrow-right"></span></button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-4">
+                <div class="order_box">
+                    <h2>Your Order</h2>
+                    <ul class="list">
+                        <li><a>Product <span>Total</span></a></li>
+                        {% for item in cart_items %}
+                        <li><a>{{item.product.title}} <span class="middle">x {{item.quantity}}</span> <span
+                                class="last">${{item.price}}</span></a></li>
+                        {% endfor %}
+                    </ul>
+                    <ul class="list list_2">
+                        <li><a>Total <span>${{total_price}}</span></a></li>
+                    </ul>
+                    <div class="payment_item">
+                        <!-- <div class="radion_btn">
+                             <input type="radio" id="f-option5" name="selector" required>
+                             <label for="f-option5">Cash on Delivery</label>
+                             <div class="check"></div>
+                         </div> -->
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
-</section>
+</div>
 
 {% endblock %}

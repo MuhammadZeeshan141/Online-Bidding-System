@@ -19,6 +19,15 @@ class Product(models.Model):
     date = models.DateTimeField(
         auto_now_add=True,
     )
+    PURCHASE = 'purchase'
+    BID = 'bid'
+    BOTH = 'both'
+    TYPE = [
+        (PURCHASE, 'Product is for purchase'),
+        (BID, 'Product is for bid'),
+        (BOTH, 'Product is for both'),
+    ]
+    type = models.CharField(max_length=35, choices=TYPE, default=PURCHASE)
 
     def __str__(self):
         return self.title
@@ -30,3 +39,12 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class History(models.Model):
+    customer = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    category = models.ForeignKey('Category', on_delete=models.CASCADE)
+    date = models.DateTimeField(
+        auto_now_add=True,
+    )

@@ -1,14 +1,97 @@
-/*--------------------------- Color variations ----------------------*/
-/*--------------------------- Fonts ----------------------*/
 @import url("https://fonts.googleapis.com/css?family=Poppins:500,700|Roboto:400,500");
-/* Medium Layout: 1280px */
-/* Tablet Layout: 768px */
-/* Mobile Layout: 320px */
-/* Wide Mobile Layout: 480px */
-/* Section Gaps css
 ============================================================================================ */
+.error-color {
+    background-color:red !important ; }
+
+.success-color {
+    background-color:#2f9a2f !important ; }
+
+.message-span{
+    width: 65%;
+    padding: 3%;
+    border-radius: 20px;
+}
+
+.customer-message-align{
+    text-align: -webkit-right;
+    text-align: -moz-right;
+}
+
+.vendor-message-align{
+    text-align: -webkit-left;
+    text-align: -moz-left;
+}
+
+.customer-message{
+    background: blue;
+    color: white;
+}
+
+.vendor-message{
+    background: grey;
+    color: white;
+}
+
+.scroll-messages{
+    height: 400px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.custom-margin-left {
+    margin-left: 5%; }
+
+.padding-bidding-table {
+    padding-left: 10%;
+    padding-right: 9%; }
+
+.padding-home-page{
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+.breadcrumb-padding {
+  padding: 2% !important; }
+
 .no-padding {
   padding: 0; }
+
+.user-profile-tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+.user-profile-tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+.user-profile-tab button:hover {
+  background-color: #ddd;
+}
+
+.user-profile-tab button.active {
+  background-color: #ccc;
+}
+
+.user-profile-tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+.padding-user-profile{
+    padding-left: 1%;
+    padding-right: 1%;
+}
 
 .section_gap {
   padding: 100px 0; }
@@ -371,7 +454,7 @@ h1, h2, h3, h4, h5, h6 {
   border-left: 2px solid #ffba00; }
 
 .table_cart {
-    width: 99% !important
+    width: 99% !important;
     }
 
 .progress-table-wrap {
@@ -1307,17 +1390,17 @@ h1, h2, h3, h4, h5, h6 {
   padding: 90px 0 100px 0; }
   .breadcrumb-banner h1 {
     font-weight: 600;
-    color: #fff; }
+    color: #ff5e00e8; }
     @media (max-width: 767px) {
       .breadcrumb-banner h1 {
         font-size: 30px; } }
   .breadcrumb-banner p {
     margin-bottom: 0;
-    color: #fff; }
+    color: #ff5e00e8; }
   .breadcrumb-banner nav a {
     display: inline-block;
-    color: #fff;
-    font-weight: 400; }
+    color: #ff5e00e8;
+    font-weight: 450; }
     .breadcrumb-banner nav a span {
       display: inline-block;
       margin: 0 10px; }
@@ -5667,6 +5750,9 @@ label {
 ============================================================================================ */
 .margin_top_50{
 margin-top: 50px;
+}
+.margin_top_20{
+margin-top: 20px;
 }
 .image_thumb{
 height: 273px !important;

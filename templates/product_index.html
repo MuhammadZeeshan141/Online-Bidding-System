@@ -1,8 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
 {% block page_content %}
-
-<div class="container margin_top_50">
+<div class=" container breadcrumb-banner breadcrumb-padding">
+    <h1>Shop</h1>
+    <nav class="d-flex align-items-center">
+        <a href="{% url 'home'%}">Home<span class="lnr lnr-arrow-right"></span></a>
+        <span>Shop</span>
+    </nav>
+</div>
+<div class="container">
     <div class="row">
         <div class="col-xl-3 col-lg-4 col-md-5">
             <div class="sidebar-categories">
@@ -31,31 +37,32 @@
         </div>
         <div class="col-xl-9 col-lg-8 col-md-7">
             <div class="filter-bar d-flex flex-wrap align-items-center margin_bottom_20">
-                 {% if products.has_other_pages %}
-            <div class="filter-bar d-flex flex-wrap align-items-center">
-                <div class="pagination">
-                    {% if products.has_previous %}
-                    <a class="prev-arrow" href="?page={{ products.previous_page_number }}"><i
-                            class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
-                    {% else %}
-                    <a class="prev-arrow disabled"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
-                    {% endif %}
-                    {% for i in products.paginator.page_range %}
-                    {% if products.number == i %}
-                    <a class="active">{{ i }} </a>
-                    {% else %}
-                    <a href="?page={{ i }}">{{ i }}</a>
-                    {% endif %}
-                    {% endfor %}
-                    {% if products.has_next %}
-                    <a class="next-arrow" href="?page={{ products.next_page_number }}"><i class="fa fa-long-arrow-right"
-                                                                                          aria-hidden="true"></i></a>
-                    {% else %}
-                    <a class="next-arrow disabled"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
-                    {% endif %}
+                {% if products.has_other_pages %}
+                <div class="filter-bar d-flex flex-wrap align-items-center">
+                    <div class="pagination">
+                        {% if products.has_previous %}
+                        <a class="prev-arrow" href="?page={{ products.previous_page_number }}"><i
+                                class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
+                        {% else %}
+                        <a class="prev-arrow disabled"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
+                        {% endif %}
+                        {% for i in products.paginator.page_range %}
+                        {% if products.number == i %}
+                        <a class="active">{{ i }} </a>
+                        {% else %}
+                        <a href="?page={{ i }}">{{ i }}</a>
+                        {% endif %}
+                        {% endfor %}
+                        {% if products.has_next %}
+                        <a class="next-arrow" href="?page={{ products.next_page_number }}"><i
+                                class="fa fa-long-arrow-right"
+                                aria-hidden="true"></i></a>
+                        {% else %}
+                        <a class="next-arrow disabled"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+                        {% endif %}
+                    </div>
                 </div>
-            </div>
-            {% endif %}
+                {% endif %}
             </div>
             <section class="lattest-product-area pb-40 category-list">
                 <h5>Showing All Products ({{ total_products }})</h5>
@@ -101,6 +108,8 @@
 														}
 													 })
 												});
+
+
 
                                     </script>
                                     {% else %}

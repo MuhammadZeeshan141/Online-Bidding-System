@@ -1,0 +1,243 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_content %}
+<div class=" container breadcrumb-banner breadcrumb-padding">
+    <h1>{{ bidding.product.title }}</h1>
+    <nav class="d-flex align-items-center">
+        <a href="{% url 'home'%}">Home<span class="lnr lnr-arrow-right"></span></a>
+        <a href="{% url 'bidding_index' %}">Bidding<span class="lnr lnr-arrow-right"></span></a>
+        <span>{{ bidding.product.title }}</span>
+    </nav>
+</div>
+<div class="product_image_area">
+    <div class="container">
+        <div class="row s_product_inner">
+            <div class="col-lg-6">
+                <div class="s_Product_carousel">
+                    <div class="single-prd-item">
+                        <img class="img-fluid" src="{{ bidding.product.image.url }}" alt="">
+                    </div>
+                    <div class="single-prd-item">
+                        <img class="img-fluid" src="{{ bidding.product.image.url }}" alt="">
+                    </div>
+                    <div class="single-prd-item">
+                        <img class="img-fluid" src="{{ bidding.product.image.url }}" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 offset-lg-1">
+                <div class="s_product_text">
+                    <h3>{{ bidding.product.title }}</h3>
+                    <h6>Minimum Bid</h6>
+                    <h2>(${{ bidding.minimumBid }})</h2>
+                    {% if type == 'active' %}
+                    <h6>Bidding Ends In:</h6>
+                    {% else %}
+                    <h6>Bidding Starts In:</h6>
+                    {% endif %}
+                    <h3>{{days}} days {{hours}}:{{minutes}}:{{seconds}}</h3>
+                    <ul class="list">
+                        <li><a class="active"
+                               href="{% url 'bidding_by_category' bidding.product.category.pk type %}"><span>Category</span>
+                            {{ bidding.product.category }}</a></li>
+                        </li>
+                    </ul>
+                    <br>
+                    <h6>Description: </h6>
+                    <blockquote class="generic-blockquote">{{ bidding.product.description }}</blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-7 padding-bidding-table">
+        <br>
+        <table class="table table_cart">
+            <thead>
+            <tr>
+                <th scope="col">Starting bid Date/Time</th>
+                <th scope="col">Ending bid Date/Time</th>
+            </tr>
+            </thead>
+            </tr>
+            <tbody>
+            <tr>
+                <td>
+                    Date : <h6>{{ bidding.startDateTime|date:'d-F-Y' }}</h6>
+                    Time : <h6>{{ bidding.startDateTime|date:'H:i' }}</h6>
+                </td>
+                <td>
+                    Date : <h6>{{ bidding.endDateTime|date:'d-F-Y' }}</h6>
+                    Time : <h6>{{ bidding.endDateTime|date:'H:i' }}</h6>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-5">
+        <div id="snackbar">Bid placed Successfully</div>
+    </div>
+</div>
+<section class="product_description_area">
+    <div class="container">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            {% if type == "active" %}
+            <li class="nav-item">
+                <a class="nav-link active" id="bidding-tab" data-toggle="tab" href="#bidding" role="tab"
+                   aria-controls="bidding"
+                   aria-selected="false">Place your Bid</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link {% if type != 'active' %} active {% endif %}" id="home-tab" data-toggle="tab"
+                   href="#home" role="tab" aria-controls="home"
+                   aria-selected="false">Description</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                   aria-controls="profile"
+                   aria-selected="false">Specification</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            {% if type == "active" %}
+            <div class="tab-pane fade show active" id="bidding" role="tabpanel" aria-labelledby="bidding-tab">
+                <div class="row contact_form">
+                    <div class="col-md-6 form-group">
+                        <input type="number" class="form-control" id="number" name="number"
+                               placeholder="Phone number" onfocus="this.placeholder = ''"
+                               onblur="this.placeholder = 'Phone number'" required>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <select class="country_select" id="country" name="country" required>
+                            <option value="">Country</option>
+                            {% for country in countries_list %}
+                            <option value="{{country.name}}">{{country.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <input type="text" class="form-control" id="add1" name="add1" placeholder="Address line 01"
+                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Address line 01'"
+                               required>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <input type="text" class="form-control" id="city" name="city" placeholder="Town/City"
+                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Town/City'" required>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <input type="text" class="form-control" id="add2" name="add2" placeholder="Address line 02"
+                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Address line 02'"
+                               required>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <input type="number" class="form-control" id="zip" name="zip" placeholder="Postcode/ZIP"
+                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Postcode/ZIP'" required>
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label>Enter Bidding Amount ($):</label>
+                        <input type="number" min="{{ bidding.minimumBid }}" name="bid"
+                               id="product_bidding" maxlength="12" value="1" title="Bidding Amount:"
+                               class="input-text qty">
+                    </div>
+                    <div class="col-md-12 text-right margin_top_20">
+                        {% if user.is_authenticated %}
+                        <button class="genric-btn info circle bidding-button" data-recordid="{{bidding.id}}"
+                                data-cartid="{{ bidding.product.id }}">Place Bid
+                        </button>
+                        {% else %}
+                        <a class="genric-btn info circle " href="{% url 'login' %}">Place Bid</a>
+                        {% endif%}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <div class="tab-pane fade {% if type != 'active' %} show active {% endif %}" id="home" role="tabpanel"
+                 aria-labelledby="home-tab">
+                <blockquote class="generic-blockquote">{{ bidding.product.long_description }}</blockquote>
+            </div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <h5>Width</h5>
+                            </td>
+                            <td>
+                                <h5>{{ bidding.product.width }}</h5>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h5>Height</h5>
+                            </td>
+                            <td>
+                                <h5>{{ bidding.product.height }}</h5>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h5>Weight</h5>
+                            </td>
+                            <td>
+                                <h5>{{ bidding.product.weight }}</h5>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+    $('.bidding-button').click(function(){
+    var record_id = $(this).attr("data-recordid");
+    var item_id = $(this).attr("data-cartid");
+    var phone_number = document.getElementById("number").value;
+    var country = document.getElementById("country").value;
+    var address1 = document.getElementById("add1").value;
+    var address2 = document.getElementById("add2").value;
+    var city = document.getElementById("city").value;
+    var zip = document.getElementById("zip").value;
+    var bidding = document.getElementById("product_bidding").value;
+        $.ajax(
+            {
+                type:"GET",
+                url: "/place-your-bid",
+                data:{
+                        record_id: record_id,
+                        product_id: item_id,
+                        phone_number : phone_number,
+                        country : country,
+                        address1 : address1,
+                        address2 : address2,
+                        city : city,
+                        zip : zip,
+                        bidding: bidding
+            },
+        success: function( data )
+            {
+                var x = document.getElementById("snackbar");
+                if(data=="success"){
+                    x.innerHTML = "Bid placed successfully";
+                    x.className = "show";
+                    x.classList.add('success-color');
+                }
+                else{
+                    x.innerHTML = data;
+                    x.className = "show";
+                    x.classList.add('error-color');
+                }
+                setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
+            }
+         })
+    });
+
+
+
+</script>
+{% endblock %}

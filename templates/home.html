@@ -1,9 +1,223 @@
-{% extends "base.html" %}
 {% load static%}
-{% block page_content %}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="{% static 'img/fav.png' %}">
+    <meta name="author" content="CodePixar">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta charset="UTF-8">
+    <title>Bidit</title>
+
+    <link rel="stylesheet" href="{% static 'css/linearicons.css'%}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/themify-icons.css'%}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css'%}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css'%}">
+    <link rel="stylesheet" href="{% static 'css/nice-select.css'%}">
+    <link rel="stylesheet" href="{% static 'css/nouislider.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/ion.rangeSlider.css'%}"/>
+    <link rel="stylesheet" href="{% static 'css/ion.rangeSlider.skinFlat.css'%}"/>
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css'%}">
+    <link rel="stylesheet" href="{% static 'css/main.css'%}">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="{% static 'js/vendor/jquery-2.2.4.min.js'%}"></script>
+    <script src="{% static 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js'%}"
+            integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+            crossorigin="anonymous"></script>
+    <script src="{% static 'js/vendor/bootstrap.min.js'%}"></script>
+    <script src="{% static 'js/jquery.ajaxchimp.min.js'%}"></script>
+    <script src="{% static 'js/jquery.nice-select.min.js'%}"></script>
+    <script src="{% static 'js/jquery.sticky.js'%}"></script>
+    <script src="{% static 'js/nouislider.min.js'%}"></script>
+    <script src="{% static 'js/countdown.js'%}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js'%}"></script>
+    <script src="{% static 'js/owl.carousel.min.js'%}"></script>
+
+    <script src="{% static 'js/main.js'%}"></script>
+</head>
+<body>
+<header class="header_area sticky-header">
+    <div class="main_menu">
+        <nav class="navbar navbar-expand-lg navbar-light main_box">
+            <div class="container">
+                <a class="navbar-brand logo_h" href="{% url 'home'%}"><img src="{% static 'img/logo.png'%}" alt=""></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav menu_nav ml-auto">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'home'%}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'bidding_index' %}">Bidding</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'product_index' %}">Shop</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact us</a></li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'recommendations' %}">Recommendations</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'accountDetails' %}"><strong>WELCOME,
+                            {{user.username}}</strong></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+                        {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                        {% endif%}
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right ">
+                        {% if user.is_authenticated %}
+                        <li class="nav-item"><a href="{% url 'cart' %}" class="cart"><span class="ti-bag"></span></a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item"><a href="{% url 'login' %}" class="cart"><span class="ti-bag"></span></a>
+                        </li>
+                        {% endif%}
+                        <li class="nav-item">
+                            <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="search_input" id="search_input_box">
+        <div class="container">
+            <form class="d-flex justify-content-between" action="{% url 'search' %}" method="post">
+                {% csrf_token %}
+                <input type="text" class="form-control" id="search_input" name="search_input" placeholder="Search Here">
+                <button type="submit" class="btn"></button>
+                <span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
+            </form>
+        </div>
+    </div>
+</header>
 
 <section class="features-area section_gap">
     <div class="container">
+        <div id="demo" class="carousel slide" data-ride="carousel">
+            <ul class="carousel-indicators">
+                <li data-target="#demo" data-slide-to="0" class="active"></li>
+                <li data-target="#demo" data-slide-to="1"></li>
+                <li data-target="#demo" data-slide-to="2"></li>
+                <li data-target="#demo" data-slide-to="3"></li>
+                <li data-target="#demo" data-slide-to="4"></li>
+            </ul>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="{% static 'img/banner/slider-1.jpg'%}" alt="Slider image not found"
+                         width="1100" height="500">
+                    <div class="carousel-caption text-left">
+                        <h3>Online Bidding System</h3>
+                        <p>Enjoy your stay here</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'img/banner/slider-2.jpg'%}" alt="Slider image not found" width="1100"
+                         height="500">
+                    <div class="carousel-caption">
+                        <h3>Effective</h3>
+                        <h6>Easy for everyone</h6>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'img/banner/slider-3.jpg'%}"
+                         alt="Slider image not found" width="1100" height="500">
+                    <div class="carousel-caption">
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'img/banner/slider-4.jpg'%}"
+                         alt="Slider image not found" width="1100" height="500">
+                    <div class="carousel-caption">
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'img/banner/slider-5.jpg'%}"
+                         alt="Slider image not found" width="1100" height="500">
+                    <div class="carousel-caption">
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#demo" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
+        </div>
+
+
+    </div>
+</section>
+<div class="single-product-slider">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 text-center">
+                <div class="section-title">
+                    <h1>Latest Products</h1>
+                    <p>Your Favourite Products In One Place, Find your perfect here.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row margin_bottom_20">
+            {% for product in products %}
+            <div class="col-lg-3 col-md-6">
+                <div class="single-product">
+                    <a href="{% url 'product_detail' product.pk %}"><img class="img-fluid image_thumb"
+                                                                         src="{{product.image.url}}"
+                                                                         alt="Image not found"></a>
+                    <div class="product-details">
+                        <a href="{% url 'product_detail' product.pk %}" class="social-info">
+                            <h6>{{ product.title }}</h6>
+                        </a>
+                        <div class="price">
+                            <h6>${{ product.price }}</h6>
+                            <h6 class="l-through">${{ product.price |add:"10" }}</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-6 text-center">
+                <div class="section-title">
+                    <h1>Recommended Products</h1>
+                    <p>Your Recently Opened Related Products are Shown Here</p>
+                </div>
+            </div>
+        </div>
+        <div class="row margin_bottom_20">
+            {% for product in recommendations_list %}
+            <div class="col-lg-3 col-md-6">
+                <div class="single-product">
+                    <a href="{% url 'product_detail' product.pk %}"><img class="img-fluid image_thumb"
+                                                                         src="{{product.image.url}}"
+                                                                         alt="Image not found"></a>
+                    <div class="product-details">
+                        <a href="{% url 'product_detail' product.pk %}" class="social-info">
+                            <h6>{{ product.title }}</h6>
+                        </a>
+                        <div class="price">
+                            <h6>${{ product.price }}</h6>
+                            <h6 class="l-through">${{ product.price |add:"10" }}</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
         <div class="row features-inner">
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="single-features">
@@ -42,32 +256,29 @@
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<div class="single-product-slider">
-    <div class="container">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center margin_top_50">
             <div class="col-lg-6 text-center">
                 <div class="section-title">
-                    <h1>Latest Products</h1>
-                    <p>Your Favourites In One Place, Find your perfect here.</p>
+                    <h1>Latest Bidding Products</h1>
+                    <p>Your Favourite Bidding Products In One Place, Find your perfect here.</p>
                 </div>
             </div>
         </div>
         <div class="row">
-            {% for product in products %}
+            {% for record in bidding_products %}
             <div class="col-lg-3 col-md-6">
                 <div class="single-product">
-                    <a href="{% url 'product_detail' product.pk %}"><img class="img-fluid image_thumb"
-                                                                         src="{{product.image.url}}"
-                                                                         alt="Image not found"></a>
+                    <a href="{% url 'bidding_detail' record.pk 'active' %}"><img class="img-fluid image_thumb"
+                                                                                 src="{{record.product.image.url}}"
+                                                                                 alt="Image not found"></a>
                     <div class="product-details">
-                        <a href="{% url 'product_detail' product.pk %}" class="social-info">
-                            <h6>{{ product.title }}</h6>
+                        <a href="{% url 'bidding_detail' record.pk 'active' %}" class="social-info">
+                            <h6>{{ record.product.title }}</h6>
                         </a>
                         <div class="price">
-                            <h6>${{ product.price }}</h6>
-                            <h6 class="l-through">${{ product.price |add:"10" }}</h6>
+                            <a href="{% url 'bidding_detail' record.pk 'active' %}" class="social-info">
+                                <h6>Minimum Bid: ${{ record.minimumBid }}</h6>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -77,24 +288,70 @@
     </div>
 </div>
 
-<section class="exclusive-deal-area">
+<section class="exclusive-deal-area padding-home-page">
     <div class="container-fluid">
         <div class="row justify-content-center align-items-center">
-            <div class="col-lg-6 no-padding exclusive-right">
-                <img src="{% static 'img/exclusive.jpg'%}" alt="Image not found">
+            <div class="col-lg-6 col-md-6 col-sm-12 no-padding exclusive-right">
+                <img class="img-fluid" src="{% static 'img/exclusive.jpg'%}" alt="Image not found">
             </div>
-            <div class="col-lg-6 no-padding exclusive-right">
-                <img class="img-fluid" src="{{featured_product.image.url}}" alt="">
-                <div class="product-details">
-                    <div class="price">
-                        <h6>${{ featured_product.price }}</h6>
-                        <h6 class="l-through">${{ featured_product.price |add:"10" }}</h6>
-                    </div>
-                    <h4>{{ featured_product.title }}</h4>
-                </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 no-padding exclusive-right">
+                <h4 class="padding-home-page">Online Bidding</h4>
+                <p class="padding-home-page">
+                    Online bidding is the future of personal property & real estate auctions; it allows prospective
+                    buyers to bid from the comfort of their own home, while still maintaining the competitive nature of
+                    a traditional auction. Online auctions mainly break down and remove the physical limitations of live
+                    auctions such as geography, presence, time, space, and a smaller target audience. Auctions have
+                    evolved from live auctions to online auctions with the help of technology.
+                </p>
+                <h4 class="padding-home-page">How Bidding Works</h4>
+                <p class="padding-home-page">
+                    Sealed-bid auction, the process is incredibly simple. Bidders submit their bid for the auction at
+                    the same time and no one knows what the other person has bid. The highest bid is the winning bid.
+                    Unlike the English auction, there is no bidding war with the price being driven up by competing
+                    bidders. A potential buyer makes a bid, which is the amount that the buyer is willing to pay for
+                    that item. Online bidding system connects sellers with buyers from potentially anywhere in the
+                    world.
+                </p>
             </div>
         </div>
     </div>
-</section>]
+</section>
+]
 
-{% endblock %}
+<footer class="footer-area section_gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8  col-md-7 col-sm-6">
+                <div class="single-footer-widget">
+                    <h6>About Us</h6>
+                    <p>
+                        It is where the world goes to shop, sell, and give. Whether you are buying new or used, plain or
+                        luxurious, commonplace or rare, trendy or one-of-a-kind – if it exists in the world, it probably
+                        is for sale here.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-1  col-md-1 col-sm-1">
+
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-5">
+                <div class="single-footer-widget">
+                    <h6>Follow Us</h6>
+                    <p>You can find us on</p>
+                    <div class="footer-social d-flex align-items-center">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
+            <p class="footer-text m-0">Copyrights &copy;<script>document.write(new Date().getFullYear());</script>
+                All rights reserved
+            </p>
+        </div>
+    </div>
+</footer>
+</body>
+
+</html>

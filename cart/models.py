@@ -53,7 +53,7 @@ class Order(models.Model):
     status = models.CharField(max_length=32, choices=STATUS, default=PENDING)
 
     def __str__(self):
-        return self.product
+        return self.product.title
 
 
 class OrderMessage(models.Model):
@@ -71,3 +71,6 @@ class OrderMessage(models.Model):
     date = models.DateTimeField(
         auto_now_add=True,
     )
+
+    def __str__(self):
+        return self.message

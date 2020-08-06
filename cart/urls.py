@@ -9,5 +9,4 @@ urlpatterns = [
     path("confirmation", views.confirmation, name='confirmation'),
     path("cart_item_increment", views.cart_item_increment, name='cart_item_increment'),
     path("cart_item_decrement", views.cart_item_decrement, name='cart_item_decrement'),
-    path("orders", views.orders, name='orders'),
 ]
