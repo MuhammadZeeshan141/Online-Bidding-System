@@ -9,7 +9,6 @@ class Records(models.Model):
     startDateTime = models.DateTimeField()
     endDateTime = models.DateTimeField()
     minimumBid = models.IntegerField()
-    maximumBid = models.IntegerField()
 
     def __str__(self):
         return self.product.title

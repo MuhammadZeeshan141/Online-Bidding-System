@@ -1,11 +1,11 @@
 from django.contrib import messages
-from django.contrib.auth.models import User, auth
+from django.contrib.auth.models import User, auth, Group
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.shortcuts import render, redirect
-from cart.models import Order, OrderMessage
+
 from bidding.models import Transactions
-from product.models import Product
+from cart.models import Order, OrderMessage
 
 
 # Create your views here.
@@ -25,8 +25,9 @@ def signup(request):
         email = request.POST['email']
         password1 = request.POST['password']
         password2 = request.POST['confirmPassword']
+        user_role = request.POST['userrole']
 
-        if username != '' and password1 != '' and password2 != '' and email != '' and first_name != '' and last_name != '':
+        if username != '' and password1 != '' and password2 != '' and email != '' and first_name != '' and last_name != '' and user_role != '':
             if validateEmail(email):
                 if password1 == password2:
                     if User.objects.filter(username=username).exists():
@@ -38,14 +39,21 @@ def signup(request):
                     else:
                         user = User.objects.create_user(username=username, first_name=first_name, last_name=last_name,
                                                         email=email, password=password1)
-                        user.save()
+                        if user_role == 'vendor':
+                            user.is_staff = True
+                            user.save()
+                            user1 = User.objects.get(username=username)
+                            group = Group.objects.get(pk=1)
+                            user1.groups.add(group)
+                        else:
+                            user.save()
                         messages.success(request, 'User created', extra_tags='alert-success')
                         return redirect('login')
                 else:
                     messages.error(request, 'Password does not match', extra_tags='alert-danger')
                     return redirect('signup')
             else:
-                (messages.error(request, 'Enter a valid Email', extra_tags='alert-danger'))
+                messages.error(request, 'Enter a valid Email', extra_tags='alert-danger')
         else:
             messages.error(request, 'Please fill all the fields', extra_tags='alert-danger')
 
@@ -75,8 +83,8 @@ def logout(request):
 
 def accountDetails(request):
     user = request.user
-    order_items = Order.objects.filter(status='pending', user=request.user)
-    bid_items = Transactions.objects.filter(user=request.user)
+    order_items = Order.objects.filter(status='pending', user=user)
+    bid_items = Transactions.objects.filter(user=user)
     context = {
         'user': user,
         'order_items': order_items,
@@ -109,10 +117,5 @@ def sendMessage(request):
             messages.success(request, 'Message sent', extra_tags='alert-success')
         else:
             messages.error(request, 'Message not sent: Write a message', extra_tags='alert-danger')
-    context = {
-        'order_id': order.id,
-        'all_messages': all_messages
-    }
     order_id = str(order.id);
-    return redirect('/ContactVendor/'+order_id)
-    #return render(request, "order_messages.html", context)
+    return redirect('/ContactVendor/' + order_id)

@@ -172,9 +172,9 @@ def bidding_detail(request, pk, type):
     days = time // (24 * 3600)
     time = time % (24 * 3600)
     hours = time // 3600
-    time %= 3600
+    time = time % 3600
     minutes = time // 60
-    time %= 60
+    time = time % 60
     seconds = time
     if request.user.is_authenticated:
         history = BidHistory.objects.filter(record=pk, customer=request.user)
@@ -209,7 +209,6 @@ def bidding_by_category(request, pk, type):
                                               product__category__pk=pk)
         breadcrumb = "Active"
     category = Category.objects.get(pk=pk)
-    # products_list = category.products.filter(type='bid') | category.products.filter(type='both')
     total_products = records_list.count
     paginator = Paginator(records_list, 9)
     page = request.GET.get('page', 1)

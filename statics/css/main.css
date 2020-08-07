@@ -1,10 +1,20 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:500,700|Roboto:400,500");
+
+
 ============================================================================================ */
-.error-color {
-    background-color:red !important ; }
+
+.cart-button{
+    color: #ffffff !important;
+    cursor: pointer;
+    }
 
 .success-color {
-    background-color:#2f9a2f !important ; }
+    background-color:#2f9a2f !important ;
+}
+
+.error-color {
+    background-color:red !important ;
+}
 
 .message-span{
     width: 65%;
@@ -5901,11 +5911,6 @@ position: absolute;
   .footer-text a,
   .footer-text i {
     color: #ffba00; }
-
-    .cart-button{
-    color: #ffffff !important;
-    cursor: pointer;
-    }
 
     #snackbar {
       visibility: hidden;

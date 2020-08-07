@@ -26,7 +26,7 @@ def home(request):
 
 
 def product_index(request):
-    products_list = Product.objects.filter(type='purchase') | Product.objects.filter(type='both')
+    products_list = Product.objects.filter(type='purchase', available=1) | Product.objects.filter(type='both', available=1)
     total_products = products_list.count
     paginator = Paginator(products_list, 9)
     page = request.GET.get('page', 1)

@@ -58,12 +58,12 @@
                             {% if type != 'bid' %}
                             <a href="{% url 'product_detail' product.pk %}" class="social-info"><img
                                     class="img-fluid image_thumb"
-                                    src="{{product.image.url}}"
+                                    src="{{product.image1.url}}"
                                     alt="Image not found"></a>
                             {% else %}
                             <a href="{% url 'bidding_detail' product.pk 'active' %}" class="social-info"><img
                                     class="img-fluid image_thumb"
-                                    src="{{product.product.image.url}}"
+                                    src="{{product.product.image1.url}}"
                                     alt="Image not found"></a>
                             {% endif %}
                             <div class="product-details">

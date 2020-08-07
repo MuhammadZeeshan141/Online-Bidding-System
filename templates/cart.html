@@ -9,6 +9,17 @@
     </nav>
 </div>
 <div class="container">
+    {% if messages %}
+    <ul class="message">
+        {% for message in messages %}
+        {% if message.tags %}
+        <div class="{{ message.extra_tags }} margin_top_50">
+            {% endif %}
+            {{ message }}
+            {% endfor %}
+        </div>
+    </ul>
+    {% endif %}
     <div class="cart_inner">
         <div class="table-responsive">
             {% if cart_items %}
@@ -27,7 +38,7 @@
                     <td>
                         <div class="media">
                             <div class="d-flex">
-                                <img class="img-fluid image_cart_thumb" src="{{item.product.image.url}}"
+                                <img class="img-fluid image_cart_thumb" src="{{item.product.image1.url}}"
                                      alt="Image not found">
                             </div>
                             <div class="media-body">

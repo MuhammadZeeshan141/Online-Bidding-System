@@ -71,7 +71,7 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="single-product">
                             <a href="{% url 'product_detail' product.pk %}"><img class="img-fluid image_thumb"
-                                                                                 src="{{product.image.url}}"
+                                                                                 src="{{product.image1.url}}"
                                                                                  alt="Image not found"></a>
                             <div class="product-details">
                                 <a href="{% url 'product_detail' product.pk %}" class="social-info">
@@ -83,31 +83,37 @@
                                 <div id="snackbar">Added to Cart Successfully</div>
                                 <div class="prd-bottom">
                                     {% if user.is_authenticated %}
-                                    <a class="social-info cart-button" data-cartid="{{ product.id }}">
+                                    <a onclick="addCart({{ product.id }})" class="social-info cart-button">
                                         <span class="ti-bag"></span>
                                         <p class="hover-text">Add to Cart</p>
                                     </a>
                                     <script type="text/javascript">
-												$('.cart-button').click(function(){
-												var item_id;
-												item_id = $(this).attr("data-cartid");
-												var quantity = 1;
+												function addCart(item_id){
 													$.ajax(
 														{
 															type:"GET",
 															url: "/add-to-cart",
 															data:{
 																	product_id: item_id,
-																	quantity: quantity
+																	quantity: 1
 														},
 													success: function( data )
 														{
-															var x = document.getElementById("snackbar");
-															 x.className = "show";
-															 setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+														    var x = document.getElementById("snackbar");
+                                                            if(data=="success"){
+                                                                x.innerHTML = "Added to Cart";
+                                                                x.className = "show";
+                                                                x.classList.add('success-color');
+                                                            }
+                                                            else{
+                                                                x.innerHTML = data;
+                                                                x.className = "show";
+                                                                x.classList.add('error-color');
+                                                            }
+                                                            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
 														}
 													 })
-												});
+												}
 
 
 

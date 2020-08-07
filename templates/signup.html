@@ -2,62 +2,80 @@
 {% load static%}
 {% block page_content %}
 
-	<section class="login_box_area section_gap">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6">
-					<div class="login_box_img">
-						<img class="img-fluid" src="{% static 'img/login.jpg' %}" alt="">
-						<div class="hover">
-							<h4>Already have an account?</h4>
-							<a class="primary-btn" href="{% url 'login' %}">Login Now</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-6">
-					<div class="login_form_inner">
-						<h3>Create an account</h3>
+<section class="login_box_area section_gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="login_box_img">
+                    <img class="img-fluid" src="{% static 'img/login.jpg' %}" alt="">
+                    <div class="hover">
+                        <h4>Already have an account?</h4>
+                        <a class="primary-btn" href="{% url 'login' %}">Login Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="login_form_inner">
+                    <h3>Create an account</h3>
 
-						{% if messages %}
-						<ul class="message">
-							{% for message in messages %}
-							{% if message.tags %}
-							<div class="{{ message.extra_tags }}">
-								{% endif %}
-								{{ message }}
-								{% endfor %}
-							</div>
-						</ul>
-						{% endif %}
+                    {% if messages %}
+                    <ul class="message">
+                        {% for message in messages %}
+                        {% if message.tags %}
+                        <div class="{{ message.extra_tags }}">
+                            {% endif %}
+                            {{ message }}
+                            {% endfor %}
+                        </div>
+                    </ul>
+                    {% endif %}
 
-						<form class="row login_form" action="signup" method="post" id="contactForm" novalidate="novalidate">
-                            {% csrf_token %}
-							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="name" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
-							</div>
-                            <div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Firstname'">
-							</div>
-                            <div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Lastname'">
-							</div>
-							<div class="col-md-12 form-group">
-								<input type="email" class="form-control" id="email" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'">
-                            </div>
-                            <div class="col-md-12 form-group">
-								<input type="password" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
-                            </div>
-                            <div class="col-md-12 form-group">
-								<input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirm Password'">
-							</div>
-							<div class="col-md-12 form-group">
-                                <br><button type="submit" value="submit" class="primary-btn">Register</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+                    <form class="row login_form" action="signup" method="post" id="contactForm" novalidate="novalidate">
+                        {% csrf_token %}
+                        <div class="col-md-12 form-group">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Username"
+                                   onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input type="text" class="form-control" id="firstName" name="firstName"
+                                   placeholder="First Name" onfocus="this.placeholder = ''"
+                                   onblur="this.placeholder = 'Firstname'">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input type="text" class="form-control" id="lastName" name="lastName"
+                                   placeholder="Last Name" onfocus="this.placeholder = ''"
+                                   onblur="this.placeholder = 'Lastname'">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email Address"
+                                   onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input type="password" class="form-control" id="password" name="password"
+                                   placeholder="Password" onfocus="this.placeholder = ''"
+                                   onblur="this.placeholder = 'Password'">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                                   placeholder="Confirm Password" onfocus="this.placeholder = ''"
+                                   onblur="this.placeholder = 'Confirm Password'">
+                        </div>
+						<div class="col-md-12 form-group">
+                            <select class="country_select" name="userrole" required>
+                                <option value="">Select user role</option>
+                                <option value="customer">Customer</option>
+                                <option value="vendor">Vendor</option>
+							</select>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <br>
+                            <button type="submit" value="submit" class="primary-btn">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 {% endblock %}
